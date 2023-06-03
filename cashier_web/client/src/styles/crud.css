@@ -1,0 +1,231 @@
+body {
+    height: 100vh;
+    background: linear-gradient(180deg, #d6e6ff 60%, rgb(204, 204, 204) 30%);
+    overflow: hidden;
+}
+
+.outer {
+    margin: 2.5% 10%;
+}
+
+.allWrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 1%;
+}
+
+.partOne {
+    background-color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    width: 70%;
+    height: 850px;
+    overflow: hidden;
+    border-radius: 15px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.boxWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5%;
+    justify-content: start;
+    margin-left: 2%;
+}
+
+.boxProduct {
+    width: 20%;
+    height: 20vh;
+    background-color: whitesmoke;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    box-sizing: border-box;
+    box-shadow: 8px 8px 5px 0px rgb(151, 151, 151);
+    border-radius: 10px;
+    cursor: auto;
+}
+
+.productPicsCrud {
+    position: relative;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.productPicsCrud img {
+    width: 80%;
+    height: 100%;
+    object-fit: cover;
+    border-color: white;
+    border: 2px;
+    border-style: double;
+}
+
+.productInfo {
+    display: flex;
+    color: black;
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    flex-direction: column;
+}
+
+.productName {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-decoration: underline;
+}
+
+.productPrice {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    color: gray;
+}
+
+.productName h3 {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.productInfo hr {
+    width: 100%;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+}
+
+.profileHeader {
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 10%
+}
+
+.partCrud {
+    width: 30%;
+    background-color: white;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+
+.createForm {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.inputName {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    width: 80%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.inputName input {
+    width: 100%;
+    height: 20px;
+    border: 0px;
+    border-bottom: 2px;
+    border-style: groove;
+    border-color: black;
+}
+
+.inputImage {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    width: 80%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.inputImage input {
+    width: 100%;
+    height: 20px;
+    display: flex;
+    border: 2px;
+    border-style: groove;
+    margin-top: 5%;
+}
+
+.inputPrice {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    width: 80%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.inputPrice input {
+    width: 100%;
+    height: 30px;
+    border: 0px;
+    border-bottom: 2px;
+    border-style: groove;
+    border-color: black;
+}
+
+.buttonSubmit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.btnAdd {
+    background-color: black;
+    height: 50px;
+    width: 80%;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.boxCrud {
+    position: relative;
+    width: 95%;
+    top: 5%;
+    height: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-content: center;
+    align-items: center;
+    gap: 2%;
+    cursor: pointer;
+}
