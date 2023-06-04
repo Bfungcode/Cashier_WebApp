@@ -14,6 +14,8 @@ export const Crud = () => {
     "https://cashierapi-default-rtdb.asia-southeast1.firebasedatabase.app/foods.json";
   const [data, setData] = useState([]);
   const [file, setFile] = useState();
+  const [name, setName] = useState();
+  const [price, setPrice] = useState();
   const [formData, setFormData] = useState({
     img: "",
     name: "",
