@@ -100,7 +100,7 @@ export const Crud = () => {
         </div>
         <div className="partCrud">
           <div className="crudHeader">
-            <h1>Product Updates</h1>
+            <h1>Product Updaes</h1>
           </div>
           <div className="createForm">
             <div className="inputName">
