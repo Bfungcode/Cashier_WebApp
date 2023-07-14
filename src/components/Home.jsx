@@ -8,6 +8,18 @@ export const Home = () => {
     return new URL(`${name}`, import.meta.url).href;
   }
   const [data, setData] = useState([]);
+  const [selectedMenus, setSelectedMenus] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [splitCount, setSplitCount] = useState(1);
+  const [splitAmount, setSplitAmount] = useState(0);
+  const [showSplit, setShowSplit] = useState(false);
+  const totalBillAmount = totalPrice;
+  const [paymentAmount, setPaymentAmount] = useState("");
+  const [paymentResult, setPaymentResult] = useState("");
+  const [changeAmount, setChangeAmount] = useState(0);
+  const [paymentStatus, setPaymentStatus] = useState(null);
+  const [chargeClicked, setChargeClicked] = useState(false);
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     const getData = async () => {
       try {
@@ -23,6 +35,25 @@ export const Home = () => {
     };
     getData();
   }, []);
+  const handleMenuClick = (item) => {
+    const selectedMenu = selectedMenus.find((menu) => menu.name === item.name);
+    const updatedMenus = [...selectedMenus];
+
+    if (selectedMenu) {
+      selectedMenu.count += 1;
+    } else {
+      const newMenu = { ...item, count: 1 };
+      updatedMenus.push(newMenu);
+    }
+
+    setSelectedMenus(updatedMenus);
+    setTotalPrice((prevTotalPrice) => prevTotalPrice + item.price);
+  };
+  const clearSale = () => {
+    setSelectedMenus([]);
+    setTotalPrice(0);
+  };
+
   return (
     <div className="w-full h-screen flex flex-row">
       <div className="bg-white w-4 flex flex-col p-2 justify-between items-center">
@@ -31,7 +62,7 @@ export const Home = () => {
           <div className="w-90 bg-black h-0.5"></div>
         </div>
         <div className="mb-6 flex flex-col gap-3">
-          <div>
+          <div className="cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -52,7 +83,7 @@ export const Home = () => {
               />
             </svg>
           </div>
-          <div>
+          <div className="cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -117,8 +148,8 @@ export const Home = () => {
             {data.map((item, index) => (
               <div
                 key={index}
-                className="w-19 h-72 p-4 bg-white m-1 rounded-md box-border"
-                // onClick={() => handleMenuClick(item)}
+                className="w-19 h-72 p-4 bg-white m-1 rounded-md box-border cursor-pointer"
+                onClick={() => handleMenuClick(item)}
               >
                 <div className="productPics">
                   <img
@@ -128,8 +159,8 @@ export const Home = () => {
                   />
                 </div>
                 <div className="productDesc w-full h-24 flex flex-row flex-wrap box-border">
-                  <div className="font-bold text-sm breal-words overflow-hidden h-9 mt-1">
-                    {item.name} Lorem, ipsum.
+                  <div className="font-bold text-md breal-words overflow-hidden h-9 mt-1">
+                    {item.name}
                   </div>
                   <div className="text-xs break-words h-12 overflow-hidden">
                     Lorem ipsum dolor sit amet consectetuing elit. Eligendi,
@@ -151,7 +182,7 @@ export const Home = () => {
             className="w-full flex flex-row justify-between h-10 items-center"
           >
             <div className="text-2xl font-semibold">Current Order</div>
-            <div className="bg-gray-100 p-1 rounded-lg">
+            <div className="bg-gray-100 p-1 rounded-lg cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -173,46 +204,47 @@ export const Home = () => {
               </svg>
             </div>
           </div>
-          <div className="w-full flex flex-wrap h-90 gap-3 overflow-auto">
-            <div
-              id="menuSelected"
-              className="w-full flex flex-row flex-wrap h-15 gap-4"
-            >
-              <div id="menuPhoto" className="w-25 h-full">
-                <img
-                  src={getImgUrl("https://i.imgur.com/FXMDlxz.png")}
-                  className="object-cover rounded-xl w-full h-full"
-                />
-              </div>
+          <div className="w-full flex flex-wrap h-90 gap-3 flex-col overflow-auto">
+            {selectedMenus.map((menu, i) => (
               <div
-                id="menuDesc"
-                className="w-65 h-full flex flex-col flex-wrap justify-between"
+                key="{menu}"
+                id="menuSelected"
+                className="w-full flex flex-row flex-wrap h-15 gap-4"
               >
-                <div className="text-sm font-semibold">
-                  Lorem, ipsum dolor sit amet consectetur.
+                <div id="menuPhoto" className="w-25 h-full">
+                  <img
+                    src={getImgUrl(menu.img)}
+                    className="object-cover rounded-xl w-full h-full"
+                  />
                 </div>
                 <div
-                  id="menuDesc2"
-                  className="flex flex-row justify-between w-full"
+                  id="menuDesc"
+                  className="w-65 h-full flex flex-col flex-wrap justify-between"
                 >
-                  <div className="text-yellow-500 font-semibold text-sm">
-                    $1000/pcs
-                  </div>
+                  <div className="text-sm font-semibold">{menu.name}</div>
                   <div
-                    id="addMenu"
-                    className="flex flex-row gap-2 w-full justify-end"
+                    id="menuDesc2"
+                    className="flex flex-row justify-between w-full"
                   >
-                    <div className="bg-gray-500 text-white w-15 text-center rounded-md">
-                      -
+                    <div className="text-yellow-500 font-semibold text-sm">
+                      ${menu.price}
                     </div>
-                    <div w-15>0</div>
-                    <div className="bg-orange-600 text-white w-15 text-center rounded-md">
-                      +
+                    <div
+                      id="addMenu"
+                      className="flex flex-row gap-2 w-full justify-end"
+                    >
+                      <div className="bg-gray-500 text-white w-15 text-center rounded-md cursor-pointer">
+                        -
+                      </div>
+                      <div className="w-15">{menu.count}</div>
+                      <div className="bg-orange-600 text-white w-15 text-center rounded-md cursor-pointer">
+                        +
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
         <div
@@ -241,7 +273,7 @@ export const Home = () => {
             <div className="text-2xl font-semibold">$100</div>
           </div>
         </div>
-        <div className="w-full h-7 bg-orange-500 rounded-xl flex justify-center items-center">
+        <div className="w-full h-7 bg-orange-500 rounded-xl flex justify-center items-center cursor-pointer">
           <div className="text-white text-xl font-semibold">
             Continue to Payment
           </div>
