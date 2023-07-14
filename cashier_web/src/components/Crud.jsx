@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "../styles/crud.css";
 import Axios from "axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

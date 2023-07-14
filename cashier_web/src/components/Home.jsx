@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../styles/home.css";
 import Axios from "axios";
 
 import {
@@ -16,7 +15,7 @@ import {
 export const Home = () => {
   const [data, setData] = useState([]);
   const [selectedMenus, setSelectedMenus] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPric] = useState(0);
   const [splitCount, setSplitCount] = useState(1);
   const [splitAmount, setSplitAmount] = useState(0);
   const [showSplit, setShowSplit] = useState(false);
@@ -54,10 +53,6 @@ export const Home = () => {
 
     setSelectedMenus(updatedMenus);
     setTotalPrice((prevTotalPrice) => prevTotalPrice + item.price);
-  };
-  const clearSale = () => {
-    setSelectedMenus([]);
-    setTotalPrice(0);
   };
 
   const printBill = () => {
