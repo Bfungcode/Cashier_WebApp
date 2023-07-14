@@ -10,16 +10,9 @@ export const Home = () => {
   const [data, setData] = useState([]);
   const [selectedMenus, setSelectedMenus] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [splitCount, setSplitCount] = useState(1);
-  const [splitAmount, setSplitAmount] = useState(0);
-  const [showSplit, setShowSplit] = useState(false);
-  const totalBillAmount = totalPrice;
-  const [paymentAmount, setPaymentAmount] = useState("");
-  const [paymentResult, setPaymentResult] = useState("");
-  const [changeAmount, setChangeAmount] = useState(0);
-  const [paymentStatus, setPaymentStatus] = useState(null);
-  const [chargeClicked, setChargeClicked] = useState(false);
+  const [priceTax, setPriceTax] = useState(0);
   const [open, setOpen] = useState(false);
+  const [method, setMethod] = useState("own");
   useEffect(() => {
     const getData = async () => {
       try {
@@ -48,6 +41,7 @@ export const Home = () => {
 
     setSelectedMenus(updatedMenus);
     setTotalPrice((prevTotalPrice) => prevTotalPrice + item.price);
+    setPriceTax((prevTotal) => prevTotal + item.price + 100);
   };
   const clearSale = () => {
     setSelectedMenus([]);
@@ -144,35 +138,92 @@ export const Home = () => {
           </div>
         </div>
         <div id="content" className="w-full h-90 p-2">
-          <div className="flex flex-wrap w-full justify-center mt-3">
-            {data.map((item, index) => (
-              <div
-                key={index}
-                className="w-19 h-72 p-4 bg-white m-1 rounded-md box-border cursor-pointer"
-                onClick={() => handleMenuClick(item)}
-              >
-                <div className="productPics">
-                  <img
-                    src={getImgUrl(item.img)}
-                    alt="item.name"
-                    className="object-cover w-full h-36 rounded-md"
-                  />
-                </div>
-                <div className="productDesc w-full h-24 flex flex-row flex-wrap box-border">
-                  <div className="font-bold text-md breal-words overflow-hidden h-9 mt-1">
-                    {item.name}
-                  </div>
-                  <div className="text-xs break-words h-12 overflow-hidden">
-                    Lorem ipsum dolor sit amet consectetuing elit. Eligendi,
-                    nihil.
-                  </div>
-                  <div className="text-yellow-500 font-semibold">
-                    ${item.price}/pcs
-                  </div>
-                </div>
+          {open ? (
+            <div className="flex flex-row flex-wrap w-full h-90 justify-center mt-3 bg-white p-4 rounded-2xl">
+              <div className="flex flex-col w-full justify-center items-center h-20">
+                <div className="text-6xl font-semibold mb-5">Payment</div>
+                <div className="w-80 bg-black h-0.5"></div>
               </div>
-            ))}
-          </div>
+              <div className="flex flex-col w-80 h-80">
+                <div className="text-2xl flex justify-end">
+                  Total Payment: ${priceTax}
+                </div>
+                <div className="text-2xl">Payment Method:</div>
+                {method === "own" ? (
+                  <div className="flex flex-row w-full h-10 gap-3 mt-2">
+                    <div
+                      className="text-xl font-semibold cursor-pointer rounded-lg text-white flex items-center justify-center bg-orange-600 w-15 h-full"
+                      onClick={() => setMethod("own")}
+                    >
+                      Own bill
+                    </div>
+                    <div
+                      className="text-xl font-semibold cursor-pointer rounded-lg text-white flex items-center justify-center opacity-50 bg-orange-600 w-15 h-full"
+                      onClick={() => setMethod("split")}
+                    >
+                      Split bill
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-row w-full h-full gap-3 mt-2">
+                    <div
+                      className="text-xl font-semibold cursor-pointer rounded-lg text-white flex items-center justify-center opacity-50 bg-orange-600 w-15 h-10"
+                      onClick={() => setMethod("own")}
+                    >
+                      Own bill
+                    </div>
+                    <div
+                      className="text-xl font-semibold cursor-pointer rounded-lg text-white flex items-center justify-center bg-orange-600 w-15 h-10"
+                      onClick={() => setMethod("split")}
+                    >
+                      Split bill
+                    </div>
+                  </div>
+                )}
+                {method === "own" ? (
+                  <div className="w-full h-10 mt-2 flex flex-row gap-5">
+                    <div className="text-5xl">Insert money amount :</div>
+                    <input
+                      type="number"
+                      className=" text-5xl text-center w-50 outline-none border-b-2 border-black"
+                    />
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-wrap w-full justify-center mt-3">
+              {data.map((item, index) => (
+                <div
+                  key={index}
+                  className="w-19 h-72 p-4 bg-white m-1 rounded-md box-border cursor-pointer"
+                  onClick={() => handleMenuClick(item)}
+                >
+                  <div className="productPics">
+                    <img
+                      src={getImgUrl(item.img)}
+                      alt="item.name"
+                      className="object-cover w-full h-36 rounded-md"
+                    />
+                  </div>
+                  <div className="productDesc w-full h-24 flex flex-row flex-wrap box-border">
+                    <div className="font-bold text-md breal-words overflow-hidden h-9 mt-1">
+                      {item.name}
+                    </div>
+                    <div className="text-xs break-words h-12 overflow-hidden">
+                      Lorem ipsum dolor sit amet consectetuing elit. Eligendi,
+                      nihil.
+                    </div>
+                    <div className="text-yellow-500 font-semibold">
+                      ${item.price}/pcs
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       <div className="container bg-white w-20 flex flex-row h-full flex-wrap p-9">
@@ -236,7 +287,7 @@ export const Home = () => {
                       <div className="bg-gray-500 text-white w-15 text-center rounded-md cursor-pointer">
                         -
                       </div>
-                      <div className="w-15">{menu.count}</div>
+                      <div className="w-15 text-center">{menu.count}</div>
                       <div className="bg-orange-600 text-white w-15 text-center rounded-md cursor-pointer">
                         +
                       </div>
@@ -253,28 +304,31 @@ export const Home = () => {
         >
           <div className="flex flex-rol justify-between">
             <div className="text-md font-semibold text-gray-400">Subtotal</div>
-            <div className="text-md font-semibold">$100</div>
+            <div className="text-md font-semibold">${totalPrice}</div>
           </div>
           <div className="flex flex-rol justify-between">
             <div className="text-md font-semibold text-gray-400">
               Discount sales
             </div>
-            <div className="text-md font-semibold">$100</div>
+            <div className="text-md font-semibold">$0</div>
           </div>
           <div className="flex flex-rol justify-between">
             <div className="text-md font-semibold text-gray-400">
               Total sales tax
             </div>
-            <div className="text-md font-semibold">$100</div>
+            <div className="text-md font-semibold">${priceTax}</div>
           </div>
           <div className="w-full bg-black h-0.5"></div>
-          <div className="flex flex-rol justify-between">
+          <div className="flex flex-rol justify-between mt-16">
             <div className="text-2xl font-semibold text-black">Total</div>
-            <div className="text-2xl font-semibold">$100</div>
+            <div className="text-2xl font-semibold">${priceTax}</div>
           </div>
         </div>
         <div className="w-full h-7 bg-orange-500 rounded-xl flex justify-center items-center cursor-pointer">
-          <div className="text-white text-xl font-semibold">
+          <div
+            className="text-white text-xl font-semibold"
+            onClick={() => setOpen(true)}
+          >
             Continue to Payment
           </div>
         </div>
