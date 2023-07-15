@@ -42,7 +42,7 @@ export const Home = () => {
 
     setSelectedMenus(updatedMenus);
     setTotalPrice((prevTotalPrice) => prevTotalPrice + item.price);
-    setPriceTax((prevTotal) => prevTotal + item.price + 100);
+    setPriceTax((prevTotal) => prevTotal + item.price + 0.5);
   };
   return (
     <div className="w-full h-screen flex flex-row">
@@ -59,9 +59,9 @@ export const Home = () => {
             viewBox="0 0 24 24"
             fill="none"
             stroke="#000000"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className="border-b-2 border-black"
           >
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -151,7 +151,7 @@ export const Home = () => {
           </div>
         </div>
         <div id="content" className="w-full h-90 p-2">
-          <div className="flex flex-wrap w-full justify-center mt-3">
+          <div className="flex flex-wrap w-full justify-start mt-3">
             {data.map((item, index) => (
               <div
                 key={index}
@@ -203,9 +203,9 @@ export const Home = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#000000"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
                 <polyline points="3 6 5 6 21 6"></polyline>
                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -316,7 +316,7 @@ export const Home = () => {
             <div className="flex flex-rol justify-between">
               <div className="text-md font-medium text-white">Subtotal</div>
               <div className="text-md font-medium text-white">
-                ${totalPrice}
+                ${totalPrice.toFixed(1)}
               </div>
             </div>
             <div className="flex flex-rol justify-between">
@@ -329,12 +329,16 @@ export const Home = () => {
               <div className="text-md font-medium text-white">
                 Total sales tax
               </div>
-              <div className="text-md font-medium text-white">${priceTax}</div>
+              <div className="text-md font-medium text-white">
+                ${priceTax.toFixed(1)}
+              </div>
             </div>
             <div className="w-full bg-white h-0.5"></div>
             <div className="flex flex-row gap-2 mt-1 justify-end">
               <div className="text-xl font-medium text-white">Total:</div>
-              <div className="text-xl font-medium text-white">${priceTax}</div>
+              <div className="text-xl font-medium text-white">
+                ${priceTax.toFixed(1)}
+              </div>
             </div>
             <div className="flex flex-col w-full h-full justify-end mb-2">
               <div className="text-xl font-medium text-white">
@@ -415,7 +419,9 @@ export const Home = () => {
                 <div className="text-md font-medium text-gray-400">
                   Subtotal
                 </div>
-                <div className="text-md font-medium">${totalPrice}</div>
+                <div className="text-md font-medium">
+                  ${totalPrice.toFixed(1)}
+                </div>
               </div>
               <div className="flex flex-rol justify-between">
                 <div className="text-md font-medium text-gray-400">
@@ -427,12 +433,16 @@ export const Home = () => {
                 <div className="text-md font-medium text-gray-400">
                   Total sales tax
                 </div>
-                <div className="text-md font-medium">${priceTax}</div>
+                <div className="text-md font-medium">
+                  ${priceTax.toFixed(1)}
+                </div>
               </div>
               <div className="w-full bg-black h-0.5"></div>
               <div className="flex flex-rol justify-between mt-16">
                 <div className="text-2xl font-medium text-black">Total</div>
-                <div className="text-2xl font-medium">${priceTax}</div>
+                <div className="text-2xl font-medium">
+                  ${priceTax.toFixed(1)}
+                </div>
               </div>
             </div>
             <div className="w-full h-7 bg-orange-500 rounded-xl flex justify-center items-center cursor-pointer">
